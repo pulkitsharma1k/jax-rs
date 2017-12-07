@@ -11,6 +11,8 @@ import org.hibernate.cfg.Configuration;
 
 
 
+import org.hibernate.query.Query;
+
 import com.pulkit.model.UserDetail;
 
 
@@ -39,6 +41,39 @@ public class UserDaoImpl implements UserDao {
 		return userlist;
 	}
 	
+	public UserDetail updateUser(UserDetail user) {
+		
+		
+		
+		
+		session.getTransaction().begin();
+		Query query = session.createSQLQuery(
+				"update userTable set name='" + user.getName() + "',email='" + user.getEmail() + "'  , address='" + user.getAddress() + "' where id='" + user.getId() + "'");
+	
+		int result = query.executeUpdate();
+		session.getTransaction().commit();
+		
+		
+	
+		
+		return user;
+	}
 
-
+	public UserDetail deleteUser(UserDetail user) {
+		
+		
+		
+		
+		session.getTransaction().begin();
+		Query query = session.createSQLQuery(
+				"delete from userTable  where id='" + user.getId() + "'");
+	
+		int result = query.executeUpdate();
+		session.getTransaction().commit();
+		
+		
+	
+		
+		return user;
+	}
 }
